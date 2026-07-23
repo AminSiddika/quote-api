@@ -24,6 +24,17 @@ const imageAlpha = (image, alpha) => {
 }
 
 function normalizeMessage (message) {
+  const { isRichTextPayload, parseRichTextToPlainAndEntities } = require('../utils/rich-text')
+  
+  if (isRichTextPayload(message.rich_text || message.richText || message)) {
+    const richPayload = message.rich_text || message.richText || message.rich_blocks || message.richBlocks || message
+    const parsed = parseRichTextToPlainAndEntities(richPayload)
+    if (parsed.text) message.text = parsed.text
+    if (parsed.entities.length) {
+      message.entities = (message.entities || []).concat(parsed.entities)
+    }
+  }
+
   if (!message.from) {
     message.from = { id: 0 }
   }
@@ -36,6 +47,14 @@ function normalizeMessage (message) {
       .join(' ')
   }
   if (message.replyMessage) {
+    if (isRichTextPayload(message.replyMessage.rich_text || message.replyMessage.richText || message.replyMessage)) {
+      const richReply = message.replyMessage.rich_text || message.replyMessage.richText || message.replyMessage
+      const parsedReply = parseRichTextToPlainAndEntities(richReply)
+      if (parsedReply.text) message.replyMessage.text = parsedReply.text
+      if (parsedReply.entities.length) {
+        message.replyMessage.entities = (message.replyMessage.entities || []).concat(parsedReply.entities)
+      }
+    }
     if (!message.replyMessage.chatId) {
       message.replyMessage.chatId = message.from.id || 0
     }
@@ -52,6 +71,7 @@ function normalizeMessage (message) {
     }
   }
 }
+
 
 async function drawPatternBackground (canvas, centerColor, edgeColor, patternImage, patternAlpha) {
   const ctx = canvas.getContext('2d')

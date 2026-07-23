@@ -49,7 +49,7 @@ const route = new Router()
 
 const routes = require('./routes')
 
-// Health check endpoint for Docker/Coolify
+// Health check endpoint
 route.get('/health', (ctx) => {
   ctx.status = 200
   ctx.body = { status: 'ok', timestamp: Date.now() }
@@ -59,13 +59,32 @@ route.use('/*', routes.routeApi.routes())
 
 app.use(route.routes())
 
-const port = process.env.PORT || 3000
-
-async function start () {
-  await loadFonts()
-  app.listen(port, () => {
-    console.log('Listening on localhost, port', port)
-  })
+let fontsLoaded = false
+async function ensureFonts () {
+  if (!fontsLoaded) {
+    await loadFonts()
+    fontsLoaded = true
+  }
 }
 
-start()
+app.use(async (ctx, next) => {
+  await ensureFonts()
+  await next()
+})
+
+const port = process.env.PORT || 3000
+
+if (process.env.VERCEL || process.env.NOW_REGION) {
+  // Running on Vercel serverless environment
+  ensureFonts()
+} else {
+  async function start () {
+    await loadFonts()
+    app.listen(port, () => {
+      console.log('Listening on localhost, port', port)
+    })
+  }
+  start()
+}
+
+module.exports = app

@@ -6,5 +6,7 @@ module.exports = {
   loadImageFromUrl: require('./image-load-url'),
   loadImageFromPath: require('./image-load-path'),
   promiseAllStepN: require('./promise-concurrent'),
-  userName: require('./user-name')
+  userName: require('./user-name'),
+  richText: require('./rich-text')
 }
+
