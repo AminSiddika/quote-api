@@ -99,7 +99,7 @@ async function downloadAvatarImage (user, telegram) {
         if (userPhoto) {
           userPhotoUrl = await telegram.getFileLink(userPhoto).catch(() => {})
         } else if (user.username) {
-          userPhotoUrl = `https://telega.one/i/userpic/320/${user.username}.jpg`
+          userPhotoUrl = `https://t.me/i/userpic/320/${user.username}.jpg`
         }
       }
 
