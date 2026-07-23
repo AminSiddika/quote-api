@@ -222,7 +222,7 @@ function drawLabel (text, fontSize, color, opts = {}) {
   // Lazy require — canvas-utils is loaded by layout-box before text-prepare.
   const { fontMetrics } = require('./text-prepare')
   const { ascent, descent } = fontMetrics(fontSize)
-  const font = `${opts.bold ? 'bold ' : ''}${fontSize}px DejaVuSans`
+  const font = `${opts.bold ? 'bold ' : ''}${fontSize}px Roboto`
   const measure = createCanvas(1, 1).getContext('2d')
   measure.font = font
   const m = measure.measureText(text)

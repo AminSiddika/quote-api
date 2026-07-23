@@ -175,7 +175,7 @@ class QuoteGenerate {
     }
 
     let avatarCanvas
-    if (message.avatar && message.from) {
+    if ((message.avatar || message.avatar !== false || (message.from && message.from.photo)) && message.from) {
       try {
         avatarCanvas = await drawAvatar(message.from, this.telegram)
       } catch (error) {

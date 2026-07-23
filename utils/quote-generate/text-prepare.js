@@ -52,7 +52,7 @@ function fontMetrics (fontSize) {
   let m = fontMetricsCache.get(fontSize)
   if (m) return m
   const ctx = getMeasureCtx()
-  ctx.font = `${fontSize}px DejaVuSans`
+  ctx.font = `${fontSize}px Roboto`
   const em = ctx.measureText('Mg')
   const tall = ctx.measureText(PROBE_TALL)
   const deep = ctx.measureText(PROBE_DEEP)
@@ -69,7 +69,7 @@ function fontMetrics (fontSize) {
 // Resolve the font string for a set of styles
 function resolveFont (styles, fontSize) {
   let fontType = ''
-  let fontName = 'DejaVuSans'
+  let fontName = 'Roboto'
 
   if (styles.includes('bold')) fontType += 'bold '
   if (styles.includes('italic')) fontType += 'italic '
