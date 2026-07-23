@@ -271,7 +271,7 @@ function drawQuote (options) {
 
   const shadowPad = s(SP.shadowPad)
   const shadowPadTop = s(SP.shadowPadTop)
-  const bubblePosX = s(SP.avatar) + s(SP.avatarGap)
+  const bubblePosX = avatar ? s(SP.avatar) + s(SP.avatarGap) : 0
   const width = bubblePosX + root.w + shadowPad
   const height = shadowPadTop + Math.max(root.h, avatar ? s(SP.avatar) + s(2) : 0) + shadowPad
 
