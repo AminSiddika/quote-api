@@ -60,7 +60,10 @@ async function downloadAvatarImage (user, telegram) {
   }
 
   if (user.photo && user.photo.url) {
-    avatarImage = await loadImage(user.photo.url).catch(() => null)
+    const buf = await loadImageFromUrl(user.photo.url).catch(() => null)
+    if (buf && buf.length > 0) {
+      avatarImage = await loadImage(buf).catch(() => null)
+    }
   }
 
   if (!avatarImage) {

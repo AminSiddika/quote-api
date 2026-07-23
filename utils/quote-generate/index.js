@@ -85,6 +85,9 @@ class QuoteGenerate {
     if (message.from && message.from.name !== false && (message.from.name || message.from.first_name || message.from.last_name)) {
       let name = message.from.name || `${message.from.first_name || ''} ${message.from.last_name || ''}`.trim()
       if (!name) name = 'User'
+      if (message.from.verified || message.from.is_verified) {
+        name += ' \u2714'
+      }
 
       const nameEntities = [{
         type: 'bold',
