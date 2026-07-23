@@ -49,6 +49,10 @@ function isRichTextPayload (payload) {
   if (!payload) return false
   if (payload.rich_message || payload.richMessage || payload.rich_text || payload.richText || payload.rich_blocks || payload.richBlocks) return true
   if (typeof payload === 'object' && payload.type && (payload.type.startsWith('Rich') || payload.children || payload.blocks || payload.rows || payload.items)) return true
+  if (Array.isArray(payload) && payload.length > 0) {
+    const first = payload[0]
+    if (first && first.type && (first.type.startsWith('RichBlock') || first.type.startsWith('richText') || first.type.startsWith('RichText'))) return true
+  }
   return false
 }
 
