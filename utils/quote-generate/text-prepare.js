@@ -52,7 +52,7 @@ function fontMetrics (fontSize) {
   let m = fontMetricsCache.get(fontSize)
   if (m) return m
   const ctx = getMeasureCtx()
-  ctx.font = `${fontSize}px NotoSans`
+  ctx.font = `${fontSize}px DejaVuSans`
   const em = ctx.measureText('Mg')
   const tall = ctx.measureText(PROBE_TALL)
   const deep = ctx.measureText(PROBE_DEEP)
@@ -69,11 +69,11 @@ function fontMetrics (fontSize) {
 // Resolve the font string for a set of styles
 function resolveFont (styles, fontSize) {
   let fontType = ''
-  let fontName = 'NotoSans'
+  let fontName = 'DejaVuSans'
 
   if (styles.includes('bold')) fontType += 'bold '
   if (styles.includes('italic')) fontType += 'italic '
-  if (styles.includes('monospace')) fontName = 'NotoSansMono'
+  if (styles.includes('monospace')) fontName = 'DroidSansMono'
 
   return `${fontType}${fontSize}px ${fontName}`
 }

@@ -25,7 +25,7 @@ function avatarImageLetters (letters, color) {
 
   const letterCount = runes(letters).length
   const fontSize = letterCount > 1 ? size * 0.38 : size * 0.48
-  context.font = `600 ${fontSize}px NotoSans`
+  context.font = `600 ${fontSize}px DejaVuSans`
   context.fillStyle = '#FFF'
   context.textAlign = 'center'
   context.textBaseline = 'middle'
