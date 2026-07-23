@@ -50,7 +50,10 @@ async function downloadAvatarImage (user, telegram) {
     else nameLetters = runes(nameWord[0])[0]
   }
 
-  const cacheKey = user.id != null ? user.id : `noId:${user.username || nameLetters}`
+  const cacheKey = (user.photo && (user.photo.url || user.photo.big_file_id)) 
+    ? `${user.id}:${user.photo.url || user.photo.big_file_id}`
+    : (user.id != null ? user.id : `noId:${user.username || nameLetters}`)
+
   const avatarImageCached = avatarCache.get(cacheKey)
   const nameIndex = user.id != null ? Math.abs(user.id) % 7 : 0
   const avatarColor = AVATAR_COLORS[nameIndex]
